@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>23Chat</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gradient-to-br from-pink-100 via-purple-200 to-blue-100 min-h-screen flex flex-col">
+
+    <div class="text-center mt-10">
+      <div class="inline-flex items-center bg-gradient-to-r from-indigo-500 to-purple-500 text-white px-6 py-3 rounded-full shadow-lg animate-fade-in">
+        <h3 class="text-xl sm:text-2xl font-bold drop-shadow">ห้องพูดคุยรวม</h3>
+      </div>
+    </div>
+    <div class="max-w-4xl mx-auto mt-8 w-3/4">
+      <div class="bg-white/70 backdrop-blur-sm shadow-xl rounded-2xl">
+        <div class="border-b px-6 py-4 flex justify-between items-center">
+          <h3 class="text-lg font-semibold changename text-purple-700">นิรนาม</h3>
+          <button onclick="location.href='index.html'" class="bg-red-400 hover:bg-red-500 text-white px-4 py-2 rounded-full shadow-sm">
+            กลับหน้าหลัก
+          </button>
+        </div>
+    
+        <div class="p-4">
+          <div class="flex gap-2">
+            <input type="text" id="username" class="border border-purple-200 px-4 py-2 rounded-lg w-full focus:ring-2 focus:ring-purple-300 bg-white/80 placeholder-gray-500" placeholder="เปลี่ยนชื่อ" />
+            <button id="usernameBtn" class="bg-yellow-400 hover:bg-yellow-500 text-white px-4 py-2 rounded-lg shadow" disabled>ยืนยัน</button>
+          </div>
+        </div>
+    
+        <div class="p-4 border-t border-b bg-white/60 backdrop-blur-sm rounded-xl mx-4 my-2 shadow-inner max-h-72 overflow-y-auto">
+          <ul id="message-list" class="space-y-2 text-gray-800"></ul>
+          <div class="info mt-2 text-sm text-gray-500"></div>
+        </div>
+    
+        <div class="p-4">
+          <div class="flex gap-2">
+            <input type="text" id="message" class="border border-gray-300 px-4 py-2 rounded-lg w-full focus:ring-2 focus:ring-green-200 bg-white/80 placeholder-gray-500" placeholder="พิมพ์อะไรสักหน่อย..." />
+            <button id="messageBtn" class="bg-green-400 hover:bg-green-500 text-white px-6 py-2 rounded-lg shadow" disabled>ส่ง</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.5.0/socket.io.js" integrity="sha512-ttqbKrGZiTtSLguBZ2xNvZrhUv02IO/TRq5U6TG5TK90wbaXWup5kIJ1A1tLzjOk5Mea/G4seVNrU+lwTLfAzA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>    <script src="/js/chatroom.js"></script>
+    <script>
+      const messageInput = document.getElementById("message");
+      const messageBtn = document.getElementById("messageBtn");
+    
+      messageInput.addEventListener("input", function () {
+        if (messageInput.value.trim() === "") {
+          messageBtn.disabled = true;
+        } else {
+          messageBtn.disabled = false;
+        }
+      });
+    
+      messageBtn.addEventListener("click", function () {
+          messageInput.value = ""; 
+          messageBtn.disabled = true;
+      });
+
+      const usernameInput = document.getElementById("username");
+      const usernameBtn = document.getElementById("usernameBtn");
+      
+      usernameInput.addEventListener("input", function () {
+        
+        if (usernameInput.value.trim() === "") {
+          usernameBtn.disabled = true;
+        } else {
+          usernameBtn.disabled = false;
+        }
+      });
+    
+      usernameBtn.addEventListener("click", function () {
+        usernameInput.value = ""; 
+        usernameBtn.disabled = true;
+      });
+      
+    </script>
+  </body>
+</html>
