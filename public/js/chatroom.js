@@ -1,8 +1,8 @@
 
 
 (function connect() {
-    let socket = io.connect("http://two3webchat.onrender.com")
-    let normalrooms = io.connect("http://two3webchat.onrender.com/nmroom")
+    let socket = io.connect("https://two3webchat.onrender.com")
+    let normalrooms = io.connect("https://two3webchat.onrender.com/nmroom")
 
     let username = document.querySelector('#username');
     let usernameBtn = document.querySelector('#usernameBtn');

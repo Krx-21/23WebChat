@@ -2,6 +2,7 @@ require("dotenv").config()
 const express = require("express");
 const socketio = require("socket.io");
 const app = express();
+const http = require("http");
 
 app.set("view engine", "ejs");
 app.use(express.static("public"));
@@ -19,7 +20,7 @@ const server = app.listen(process.env.PORT || 3000, () => {
 
 const io = socketio(server,{
     cors: {
-            origin: "http://two3webchat.onrender.com",
+            origin: "https://two3webchat.onrender.com",
             methods: ["GET", "POST"],
             credentials: true,
             transports: ['websocket', 'polling'],
