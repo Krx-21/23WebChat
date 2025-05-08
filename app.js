@@ -19,7 +19,7 @@ const server = app.listen(process.env.PORT || 3000, () => {
 
 const io = socketio(server,{
     cors: {
-            origin: "http://localhost",
+            origin: "http://two3webchat.onrender.com",
             methods: ["GET", "POST"],
             credentials: true,
             transports: ['websocket', 'polling'],

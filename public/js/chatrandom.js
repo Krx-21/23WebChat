@@ -1,7 +1,7 @@
 
 
 (function connect() {
-        const socket = io.connect("http://localhost:3000/random")
+        const socket = io.connect("http://two3webchat.onrender.com/random")
         let otherUserId = null
         let messageContainer = document.getElementsByClassName("chat-list")[0]
         let groupId = ""
