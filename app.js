@@ -15,12 +15,9 @@ const server = app.listen(process.env.PORT || 3000, () => {
   console.log("server is running...");
 });
 
-// Initialize socket for the server
-// const io = socketio(server);
-
 const io = socketio(server,{
     cors: {
-            origin: "https://two3webchat.onrender.com",
+            origin: "https://two3webchat.onrender.com", // your url :)
             methods: ["GET", "POST"],
             credentials: true,
             transports: ['websocket', 'polling'],
@@ -34,15 +31,13 @@ const randomrooms = io.of('/random')
 
 
 // default io
-
 io.on("connection", socket => {
   socket.username = "นิรนาม"
 
   socket.on("change_username", data => {
     socket.username = data.username
   })
-
-  // handle the new message event
+  
   socket.on("new_message", data => {
     console.log("new messsage");
     io.sockets.emit("receive_message", { message: data.message, username: socket.username})
@@ -54,7 +49,6 @@ io.on("connection", socket => {
 })
 
 // normalrooms 
-
 normalrooms.on("connection", socket => {
   console.log("New user connected in normal rooms");
 
@@ -75,8 +69,8 @@ const loggerMiddleware = expressPinoLogger({
     logger,
 })
 app.use(loggerMiddleware)
-let connectedUsers = [] // holds IDs of all connected users
-let availableUsers = [] // holds IDs of all available users
+let connectedUsers = []
+let availableUsers = [] 
 let numOfConnectedUsers = 0
 let groups = []
 let pairedUsers = {
@@ -112,25 +106,19 @@ const connectTwoUsers = (socketId) => {
   })
   logger.info("Users paired")
 }
-// random room system
 
+// random room system
 randomrooms.on("connection", socket => {
     if(socket.handshake.headers.referer.includes("group")){
         return
     }
     logger.info("New socket connection established")
-    connectedUsers.push(socket.id) // add socket id to connectedUsers
+    connectedUsers.push(socket.id)
     numOfConnectedUsers++
-
-    /* io.emit("get number of users", {
-        for: socket.id,
-        numOfConnectedUsers
-    }) */
 
     if(availableUsers.length > 0){
         connectTwoUsers(socket.id)
     }
-    // if there is not any available user add new user to this array
     else{
         availableUsers.push(socket.id)
         console.log("pridane")
